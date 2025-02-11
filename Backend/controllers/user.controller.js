@@ -17,6 +17,7 @@ export const createUser=async (req,res) => {
         const user=await userService.createUser(req.body)
 
         const token=await user.generateJWT()
+        res.cookie('token', token);
 
         delete user._doc.password
        return res.status(201).json({user,token})
@@ -52,6 +53,7 @@ export const loginUser=async (req,res) => {
         }
 
         const token = await user.generateJWT();
+        res.cookie('token', token);
         delete user._doc.password
         return res.status(200).json({ user, token });
         

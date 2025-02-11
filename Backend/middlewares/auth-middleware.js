@@ -7,9 +7,11 @@ import redisClient from "../services/redis.service.js";
 
 
 export const authMiddleware=async (req ,res , next)=>{
+ 
     try {
         
         const token=req.cookies.token || req.headers.authorization.split(' ')[1];
+        console.log("token",token);
         if(!token){
             return res.status(401).send({error:"Unauthorized User"})
         }
@@ -22,7 +24,8 @@ export const authMiddleware=async (req ,res , next)=>{
         req.user=decoded
         next()
     } catch (error) {
-        res.status(401).send({error:"Please , Authenticate"})
+      console.log(error.message)
+       return res.status(401).send({error:"Please , Authenticate"})
         
     }
 }
