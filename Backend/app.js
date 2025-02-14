@@ -22,6 +22,6 @@ app.get('/', (req, res) => {
 
 app.use("/users",userRouter)
 app.use("/projects",projectRouter)
-app.use("/ai",aiRouter)
+app.use("/ai", aiRouter)
 
 export default app;
