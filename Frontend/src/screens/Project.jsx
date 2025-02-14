@@ -2,6 +2,7 @@ import React, { useEffect, useState ,useContext} from "react";
 import { useLocation } from "react-router-dom";
 import axios from "../config/axios.js";
 import { UserContext } from "../context/user.context.jsx";
+import Markdown from 'markdown-to-jsx'
 import {
   initializeSocket,
   recieveMessage,
@@ -124,7 +125,16 @@ function appendIncomingMessage(messageObj) {
     "w-fit"
   );
 
-  // Create sender element
+  if(messageObj.sender._id=='ai'){
+    const markDown=(<Markdown>{messageObj.message}</Markdown>)
+    message.innerHTML = `
+    <small class='opacity-70 text-xs'>${messageObj.sender.email}</small>
+    <p class='text-sm'>${markDown}</p>
+    `
+
+  }else{
+
+    // Create sender element
   const sender = document.createElement("small");
   sender.classList.add("opacity-70", "text-xs");
   sender.textContent = messageObj.sender.email;
@@ -138,6 +148,10 @@ function appendIncomingMessage(messageObj) {
   messageText.style.wordBreak = "break-word";
   messageText.style.overflowWrap = "break-word";
 
+
+  }
+
+  
   // Append elements
   message.appendChild(sender);
   message.appendChild(messageText);
