@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
+    "build": "vite build && cp -r dist ../Backend/public",
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
