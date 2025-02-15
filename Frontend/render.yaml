@@ -1,0 +1,4 @@
+redirects:
+  - source: /<*>  # Redirect all frontend routes
+    destination: /index.html
+    status: 200
