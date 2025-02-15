@@ -1,10 +1,11 @@
 import React from 'react'
 import { Route,BrowserRouter,Routes } from 'react-router-dom'
-import Login from '../screens/login'
+
 import Register from '../screens/Register'
 import Home from '../screens/Home'
 import Project from '../screens/Project'
 import UserAuth from '../auth/UserAuth'
+import Login from '../screens/login'
 
 const AppRoutes = () => {
   return (

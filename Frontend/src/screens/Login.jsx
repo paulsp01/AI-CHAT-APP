@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from '../config/axios.js'
 import { UserContext } from '../context/user.context'
 
-const Login = () => {
+const login = () => {
 
 
      const [ email, setEmail ] = useState('')
@@ -77,4 +77,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default login
