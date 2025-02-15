@@ -23,7 +23,7 @@ const LogIn = () => {
         console.log(res.data);
 
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.user._id)); // Store user data
+        localStorage.setItem("user", JSON.stringify(res.data.user)); // Store user data
 
         setUser(res.data.user);
 
