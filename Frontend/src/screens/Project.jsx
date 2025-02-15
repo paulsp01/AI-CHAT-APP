@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../config/axios.js";
 import hljs from 'highlight.js';
 import { UserContext } from "../context/user.context.jsx";
@@ -28,6 +28,7 @@ function SyntaxHighlightedCode(props) {
 
 const Project = () => {
   const location = useLocation();
+  const navigate=useNavigate();
 
   const [isSidepanelOpen, setIsSidepanelOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
