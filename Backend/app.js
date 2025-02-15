@@ -6,11 +6,17 @@ import projectRouter from "./routes/project.routes.js"
 import aiRouter from "./routes/ai.routes.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"; // Import cookie-parser
+const corsOptions = {
+    origin: "https://ai-chat-app-1-lo0k.onrender.com", // Replace with your actual frontend URL
+    credentials: true, // Allow sending cookies/auth headers
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
 
 connectDB();
 
 const app = express()
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(morgan('dev'))
 app.use(cookieParser()); 
 app.use(express.json())
