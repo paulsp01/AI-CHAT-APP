@@ -14,6 +14,7 @@ connectDB();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+console.log('Current Directory: ', __dirname);
 
 const app = express()
 
@@ -40,5 +41,6 @@ app.use(cors({
     origin: 'https://localhost:5173', // Replace with your frontend domain
     credentials: true,
   }));
+ 
 
 export default app;

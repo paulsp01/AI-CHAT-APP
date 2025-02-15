@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "build": "vite build && cp -r dist ../Backend/public",
+    "build": "cd ../Frontend && npm run build && npx ncp ./dist ../Backend/public/dist ",
 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,5 +28,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.1.9",
     "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "ncp": "^2.0.0"
   }
 }
