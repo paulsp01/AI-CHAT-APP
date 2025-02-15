@@ -40,6 +40,10 @@ const Project = () => {
   const [fileTree, setFileTree] = useState({});
   const [currentFile, setCurrentFile] = useState(null);
   const [openFiles, setOpenFiles] = useState([]);
+  
+const [isInstalling, setIsInstalling] = useState(false);
+const [showPopup, setShowPopup] = useState("");
+
 
   const [ webContainer, setWebContainer ] = useState(null)
     const [ iframeUrl, setIframeUrl ] = useState(null)
@@ -299,51 +303,102 @@ const Project = () => {
               ))}
             </div>
 
-            <div className="actions flex gap-2">
-              <button
-                onClick={async () => {
-                  await webContainer.mount(fileTree);
 
-                  const installProcess = await webContainer.spawn("npm", [
-                    "install",
-                  ]);
 
-                  installProcess.output.pipeTo(
-                    new WritableStream({
-                      write(chunk) {
-                        console.log("chunk",chunk);
-                      },
-                    })
-                  );
 
-                  if (runProcess) {
-                    runProcess.kill();
-                  }
+  <div className="actions flex gap-2">
+    
+    {showPopup && (
+      <div className="popup bg-gray-700 text-white p-3 rounded-md fixed top-5 left-1/2 transform -translate-x-1/2">
+        {showPopup}
+      </div>
+    )}
 
-                  let tempRunProcess = await webContainer.spawn("npm", [
-                    "start",
-                  ]);
+    <button
+      onClick={async () => {
+        if (isInstalling) {
+          alert("Installation is in progress, please wait...");
+          return;
+        }
 
-                  tempRunProcess.output.pipeTo(
-                    new WritableStream({
-                      write(chunk) {
-                        console.log("run",chunk);
-                      },
-                    })
-                  );
+        setIsInstalling(true);
+        setShowPopup("Installing...");
 
-                  setRunProcess(tempRunProcess);
+        await webContainer.mount(fileTree);
 
-                  webContainer.on("server-ready", (port, url) => {
-                    console.log(port, url);
-                    setIframeUrl(url);
-                  });
-                }}
-                className="p-2 px-4  bg-slate-600 text-white"
-              >
-                run
-              </button>
-            </div>
+        const installProcess = await webContainer.spawn("npm", ["install"]);
+
+        installProcess.output.pipeTo(
+          new WritableStream({
+            write(chunk) {
+              console.log("chunk", chunk);
+            },
+          })
+        );
+
+        await installProcess.exit; 
+
+        setIsInstalling(false);
+        setShowPopup("Installation complete, click the run button to show the ouput.");
+
+        if (runProcess) {
+          runProcess.kill();
+        }
+      }}
+      className="p-2 px-4 bg-slate-600 text-white"
+    >
+      Install
+    </button>
+
+    <button
+      onClick={async () => {
+        if (isInstalling) {
+          alert("Installation is still in progress, please wait...");
+          return;
+        }
+
+        setShowPopup(""); 
+
+        let tempRunProcess = await webContainer.spawn("npm", ["start"]);
+
+        tempRunProcess.output.pipeTo(
+          new WritableStream({
+            write(chunk) {
+              console.log("run", chunk);
+            },
+          })
+        );
+
+        setRunProcess(tempRunProcess);
+
+        webContainer.on("server-ready", (port, url) => {
+          console.log(port, url);
+          setIframeUrl(url);
+        });
+      }}
+      className="p-2 px-4 bg-green-600 text-white"
+    >
+      Run
+    </button>
+    <button onClick={() => navigate("/")}       className=" px-3 mx-5 rounded-full bg-purple-800 text-white"
+
+    >
+   <i class="ri-home-5-fill"></i>
+    </button>
+  </div>
+
+
+
+   
+
+
+
+
+
+
+
+
+
           </div>
           <div className="bottom flex flex-grow max-w-full shrink overflow-auto">
             {fileTree[currentFile] && (
