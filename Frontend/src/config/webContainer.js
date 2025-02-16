@@ -18,7 +18,7 @@ export const getWebContainer = async () => {
     if (webContainerInstance === null) {
         console.log("WebContainer is not yet initialized.");  // Debug log
         try {
-            webContainerInstance = await WebContainer?.boot();
+            webContainerInstance = await WebContainer.boot();
             console.log("WebContainer successfully booted.");  // Debug log
         } catch (error) {
             console.error("Error booting WebContainer:", error);
