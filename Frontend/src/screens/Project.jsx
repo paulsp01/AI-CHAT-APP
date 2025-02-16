@@ -29,7 +29,7 @@ function SyntaxHighlightedCode(props) {
 const Project = () => {
   const location = useLocation();
   const navigate=useNavigate();
-  sessionStorage.setItem('project', JSON.stringify(a.state.project));
+  sessionStorage.setItem('project', JSON.stringify(location.state.project));
 
 // In your component where you're accessing the project
 const projectFromStorage = JSON.parse(sessionStorage.getItem('project'))
