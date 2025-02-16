@@ -36,7 +36,8 @@ app.use("/ai", aiRouter)
 app.use(express.static(path.join(__dirname, "public", "dist"))); // Adjust if needed
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "dist", "index.html"));
-})
+});
+
 app.use(cors({
     origin: 'https://ai-chat-app-1-lo0k.onrender.com', // Replace with your frontend domain
     credentials: true,
