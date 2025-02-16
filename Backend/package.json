@@ -7,7 +7,7 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
    
-    "build": "cd ../Frontend && npm install && npm run build && npx shx cp -r dist/* ../Backend/public/",
+"build": "cd ../Frontend && npm install && npm run build && npx shx mkdir -p ../Backend/public/dist && npx shx cp -r dist/* ../Backend/public/dist/",
 
 
     "test": "echo \"Error: no test specified\" && exit 1"
