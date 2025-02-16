@@ -99,7 +99,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: 'https://ai-chat-app-1-lo0k.onrender.com', 
+    origin: 'http://localhost:5173', 
     credentials: true,
 }));
 
