@@ -70,10 +70,18 @@ const [showPopup, setShowPopup] = useState("");
     if (!webContainer) {
       console.log("WebContainer not initialized, attempting to boot...");
       
-      getWebContainer().then(container => {
-          setWebContainer(container)
-          console.log("container started")
+      getWebContainer()
+      .then(container => {
+        if (!container) {
+          console.error("WebContainer failed to initialize");
+        } else {
+          setWebContainer(container);
+          console.log("WebContainer successfully started");
+        }
       })
+      .catch(err => {
+        console.error("Error initializing WebContainer:", err);
+      });
   }
 
 
