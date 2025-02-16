@@ -99,7 +99,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-    origin: 'https://ai-chat-app-1-lo0k.onrender.com', // Replace with your frontend domain
+    origin: 'http://localhost:5173', // Replace with your frontend domain
     credentials: true,
     methods: "GET, POST, PUT, DELETE, OPTIONS",
     allowedHeaders: "Content-Type, Authorization",
@@ -112,16 +112,7 @@ app.use(express.static(path.join(__dirname, "public", "dist")));
 console.log('Static path:', path.join(__dirname, "public", "dist"));
 
 
-app.use((req, res, next) => {
-    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-    res.setHeader("Access-Control-Allow-Origin", "https://ai-chat-app-1-lo0k.onrender.com");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-    next();
-});
+
 
 
 
@@ -129,6 +120,16 @@ app.use("/users", userRouter);
 app.use("/projects", projectRouter);
 app.use("/ai", aiRouter);
 
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    next();
+});
 
 
 
