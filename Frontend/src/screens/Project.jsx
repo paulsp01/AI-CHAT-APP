@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../config/axios.js";
-import hljs from 'highlight.js';
+import hljs from "highlight.js";
 import { UserContext } from "../context/user.context.jsx";
 import Markdown from "markdown-to-jsx";
 import {
@@ -9,7 +9,7 @@ import {
   recieveMessage,
   sendMessage,
 } from "../config/socket.js";
-import { getWebContainer } from '../config/webContainer.js'
+import { getWebContainer } from "../config/webContainer.js";
 
 function SyntaxHighlightedCode(props) {
   const ref = useRef(null);
@@ -28,7 +28,7 @@ function SyntaxHighlightedCode(props) {
 
 const Project = () => {
   const location = useLocation();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const [isSidepanelOpen, setIsSidepanelOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,15 +41,14 @@ const Project = () => {
   const [fileTree, setFileTree] = useState({});
   const [currentFile, setCurrentFile] = useState(null);
   const [openFiles, setOpenFiles] = useState([]);
-  
-const [isInstalling, setIsInstalling] = useState(false);
-const [showPopup, setShowPopup] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [isInstalling, setIsInstalling] = useState(false);
+  const [showPopup, setShowPopup] = useState("");
 
+  const [webContainer, setWebContainer] = useState(null);
+  const [iframeUrl, setIframeUrl] = useState(null);
 
-  const [ webContainer, setWebContainer ] = useState(null)
-    const [ iframeUrl, setIframeUrl ] = useState(null)
-
-    const [ runProcess, setRunProcess ] = useState(null)
+  const [runProcess, setRunProcess] = useState(null);
 
   const { user } = useContext(UserContext);
 
@@ -65,54 +64,52 @@ const [showPopup, setShowPopup] = useState("");
 
   useEffect(() => {
     initializeSocket(project._id);
-    console.log("Socket initialized for project:", project._id); 
-    
+    console.log("Socket initialized for project:", project._id);
+
     if (!webContainer) {
       console.log("WebContainer not initialized, attempting to boot...");
-      
-      getWebContainer()
-      .then(container => {
-        if (!container) {
-          console.error("WebContainer failed to initialize");
-        } else {
-          setWebContainer(container);
-          console.log("WebContainer successfully started");
-        }
-      })
-      .catch(err => {
-        console.error("Error initializing WebContainer:", err);
-      });
-  }
 
+      getWebContainer()
+        .then((container) => {
+          if (!container) {
+            console.error("WebContainer failed to initialize");
+          } else {
+            setWebContainer(container);
+            console.log("WebContainer successfully started");
+           
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error initializing WebContainer:", err);
+          setLoading(false); // Stop loading even if there was an error
+        });
+    }
 
     recieveMessage("project-message", (data) => {
       console.log("recieve", data);
 
-      if (data.sender._id == 'ai') {
+      if (data.sender._id == "ai") {
+        const message = JSON.parse(data.message);
 
+        console.log(message);
 
-        const message = JSON.parse(data.message)
-
-        console.log(message)
-
-        webContainer?.mount(message.fileTree)
+        webContainer?.mount(message.fileTree);
 
         if (message.fileTree) {
-            setFileTree(message.fileTree || {})
+          setFileTree(message.fileTree || {});
         }
-        setMessages(prevMessages => [ ...prevMessages, data ]) // Update messages state
-    } else {
-
-
-        setMessages(prevMessages => [ ...prevMessages, data ]) // Update messages state
-    }
+        setMessages((prevMessages) => [...prevMessages, data]); // Update messages state
+      } else {
+        setMessages((prevMessages) => [...prevMessages, data]); // Update messages state
+      }
     });
 
     axios
       .get(`/projects/get-project/${location.state.project._id}`)
       .then((res) => {
         setProject(res.data.project);
-         setFileTree(res.data.project.fileTree || {})
+        setFileTree(res.data.project.fileTree || {});
       });
 
     axios
@@ -137,8 +134,6 @@ const [showPopup, setShowPopup] = useState("");
       return newSelectedUserId;
     });
   };
-
-
 
   function addCollaborators() {
     axios
@@ -166,16 +161,18 @@ const [showPopup, setShowPopup] = useState("");
   };
 
   function saveFileTree(ft) {
-    axios.put('/projects/update-file-tree', {
+    axios
+      .put("/projects/update-file-tree", {
         projectId: project._id,
-        fileTree: ft
-    }).then(res => {
-        console.log(res.data)
-    }).catch(err => {
-        console.log(err)
-    })
-}
-
+        fileTree: ft,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function WriteAiMessage(message) {
     const messageObject = JSON.parse(message);
@@ -315,10 +312,7 @@ const [showPopup, setShowPopup] = useState("");
               ))}
             </div>
 
-
-
-
-  <div className="actions flex gap-2">
+            {/* <div className="actions flex gap-2">
     
     {showPopup && (
       <div className="popup bg-gray-700 text-white p-3 rounded-md fixed top-5 left-1/2 transform -translate-x-1/2">
@@ -355,7 +349,7 @@ const [showPopup, setShowPopup] = useState("");
        try {
         
         console.log("📂 Mounting file tree...");
-        await webContainer?.mount(fileTree);
+        await webContainer.mount(fileTree);
         console.log("✅ File tree mounted successfully!");
        } catch (error) {
         console.error("❌ Error mounting file tree:", error);
@@ -366,7 +360,7 @@ const [showPopup, setShowPopup] = useState("");
        }
        console.log("⚙️ Starting npm install...");
 
-        const installProcess = await webContainer?.spawn("npm", ["install"]);
+        const installProcess = await webContainer.spawn("npm", ["install"]);
 
         installProcess.output.pipeTo(
           new WritableStream({
@@ -399,7 +393,7 @@ const [showPopup, setShowPopup] = useState("");
 
         setShowPopup(""); 
 
-        let tempRunProcess = await webContainer?.spawn("npm", ["start"]);
+        let tempRunProcess = await webContainer.spawn("npm", ["start"]);
 
         tempRunProcess.output.pipeTo(
           new WritableStream({
@@ -411,7 +405,7 @@ const [showPopup, setShowPopup] = useState("");
 
         setRunProcess(tempRunProcess);
 
-        webContainer?.on("server-ready", (port, url) => {
+        webContainer.on("server-ready", (port, url) => {
           console.log(port, url);
           setIframeUrl(url);
         });
@@ -425,20 +419,135 @@ const [showPopup, setShowPopup] = useState("");
     >
    <i class="ri-home-5-fill"></i>
     </button>
-  </div>
+  </div> */}
 
+            <div className="actions flex gap-2">
+              {showPopup && (
+                <div className="popup bg-gray-700 text-white p-3 rounded-md fixed top-5 left-1/2 transform -translate-x-1/2">
+                  {showPopup}
+                </div>
+              )}
 
+              {/* Install Button */}
+              <button
+                onClick={async () => {
+                  console.log("🚀 Install button clicked");
+                  console.log("webContainer:", webContainer);
 
-   
+                  // Handle missing webContainer
+                  if (!webContainer) {
+                    console.error(
+                      "❌ WebContainer is null or not initialized."
+                    );
+                    setShowPopup("Error: WebContainer is not initialized.");
+                    return;
+                  }
 
+                  // Prevent multiple installs while the process is ongoing
+                  if (isInstalling) {
+                    alert("Installation is in progress, please wait...");
+                    return;
+                  }
 
+                  setIsInstalling(true);
+                  setShowPopup("Installing...");
 
+                  try {
+                    console.log("📂 Mounting file tree...");
+                    await webContainer.mount(fileTree);
+                    console.log("✅ File tree mounted successfully!");
+                  } catch (error) {
+                    console.error("❌ Error mounting file tree:", error);
+                    setShowPopup("Error mounting file tree.");
+                    setIsInstalling(false);
+                    return;
+                  }
 
+                  console.log("⚙️ Starting npm install...");
+                  try {
+                    const installProcess = await webContainer.spawn("npm", [
+                      "install",
+                    ]);
 
+                    // Stream output from the install process
+                    installProcess.output.pipeTo(
+                      new WritableStream({
+                        write(chunk) {
+                          console.log("chunk", chunk);
+                        },
+                      })
+                    );
 
+                    // Wait for the install process to exit
+                    await installProcess.exit;
 
+                    setIsInstalling(false);
+                    setShowPopup(
+                      "Installation complete, click the Run button to show the output."
+                    );
 
+                    if (runProcess) {
+                      runProcess.kill(); // Kill any previous run processes
+                    }
+                  } catch (error) {
+                    console.error("❌ Error starting npm install:", error);
+                    setShowPopup("Error during installation.");
+                    setIsInstalling(false);
+                  }
+                }}
+                className="p-2 px-4 bg-slate-600 text-white"
+                disabled={isInstalling} // Disable button while installing
+              >
+                {isInstalling ? "Installing..." : "Install"}
+              </button>
 
+              {/* Run Button */}
+              <button
+                onClick={async () => {
+                  if (isInstalling) {
+                    alert("Installation is still in progress, please wait...");
+                    return;
+                  }
+
+                  setShowPopup(""); // Clear any previous messages
+
+                  let tempRunProcess;
+                  try {
+                    tempRunProcess = await webContainer.spawn("npm", ["start"]);
+
+                    tempRunProcess.output.pipeTo(
+                      new WritableStream({
+                        write(chunk) {
+                          console.log("run", chunk);
+                        },
+                      })
+                    );
+
+                    setRunProcess(tempRunProcess);
+
+                    webContainer.on("server-ready", (port, url) => {
+                      console.log("Server is ready at:", port, url);
+                      setIframeUrl(url); // Set the iframe URL to display the output
+                    });
+                  } catch (error) {
+                    console.error("❌ Error running the server:", error);
+                    setShowPopup("Error starting the server.");
+                  }
+                }}
+                className="p-2 px-4 bg-green-600 text-white"
+                
+              >
+                Run
+              </button>
+
+              {/* Navigate to Home Button */}
+              <button
+                onClick={() => navigate("/")}
+                className="px-3 mx-5 rounded-full bg-purple-800 text-white"
+              >
+                <i className="ri-home-5-fill"></i>
+              </button>
+            </div>
           </div>
           <div className="bottom flex flex-grow max-w-full shrink overflow-auto">
             {fileTree[currentFile] && (
@@ -479,17 +588,19 @@ const [showPopup, setShowPopup] = useState("");
           </div>
         </div>
 
-
-        {iframeUrl && webContainer &&
-                    (<div className="flex min-w-96 flex-col h-full">
-                        <div className="address-bar">
-                            <input type="text"
-                                onChange={(e) => setIframeUrl(e.target.value)}
-                                value={iframeUrl} className="w-full p-2 px-4 bg-slate-200" />
-                        </div>
-                        <iframe src={iframeUrl} className="w-full h-full"></iframe>
-                    </div>)
-                }
+        {iframeUrl && webContainer && (
+          <div className="flex min-w-96 flex-col h-full">
+            <div className="address-bar">
+              <input
+                type="text"
+                onChange={(e) => setIframeUrl(e.target.value)}
+                value={iframeUrl}
+                className="w-full p-2 px-4 bg-slate-200"
+              />
+            </div>
+            <iframe src={iframeUrl} className="w-full h-full"></iframe>
+          </div>
+        )}
       </section>
 
       {isModalOpen && (
