@@ -29,16 +29,13 @@ function SyntaxHighlightedCode(props) {
 const Project = () => {
   const location = useLocation();
   const navigate=useNavigate();
-  sessionStorage.setItem('project', JSON.stringify(location.state.project));
-
-// In your component where you're accessing the project
-const projectFromStorage = JSON.parse(sessionStorage.getItem('project'))
+ 
 
   const [isSidepanelOpen, setIsSidepanelOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(new Set());
-  //const [project, setProject] = useState(location.state?.project||null);
-  const [project, setProject] = useState(projectFromStorage||null);
+  const [project, setProject] = useState(location.state?.project||null);
+
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState([]);
   const messageBox = React.createRef();
