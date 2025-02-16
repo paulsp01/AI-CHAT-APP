@@ -33,7 +33,7 @@ const Project = () => {
   const [isSidepanelOpen, setIsSidepanelOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(new Set());
-  const [project, setProject] = useState(location.state.project);
+  const [project, setProject] = useState(location.state?.project||null);
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState([]);
   const messageBox = React.createRef();
