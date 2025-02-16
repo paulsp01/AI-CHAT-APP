@@ -317,6 +317,23 @@ const [showPopup, setShowPopup] = useState("");
 
     <button
       onClick={async () => {
+
+
+
+        console.log("🚀 Install button clicked");  // Log when button is clicked
+        console.log("webContainer:", webContainer);  // Check if webContainer is defined
+    
+        if (!webContainer) {
+          console.error("❌ WebContainer is null or not initialized.");
+          setShowPopup("Error: WebContainer is not initialized.");
+          return;
+        }
+
+
+
+
+
+        
         if (isInstalling) {
           alert("Installation is in progress, please wait...");
           return;
@@ -324,8 +341,19 @@ const [showPopup, setShowPopup] = useState("");
 
         setIsInstalling(true);
         setShowPopup("Installing...");
-
+       try {
+        
+        console.log("📂 Mounting file tree...");
         await webContainer.mount(fileTree);
+        console.log("✅ File tree mounted successfully!");
+       } catch (error) {
+        console.error("❌ Error mounting file tree:", error);
+      setShowPopup("Error mounting file tree.");
+      setIsInstalling(false);
+      return;
+        
+       }
+       console.log("⚙️ Starting npm install...");
 
         const installProcess = await webContainer.spawn("npm", ["install"]);
 
