@@ -65,8 +65,11 @@ const [showPopup, setShowPopup] = useState("");
 
   useEffect(() => {
     initializeSocket(project._id);
+    console.log("Socket initialized for project:", project._id); 
     
     if (!webContainer) {
+      console.log("WebContainer not initialized, attempting to boot...");
+      
       getWebContainer().then(container => {
           setWebContainer(container)
           console.log("container started")
