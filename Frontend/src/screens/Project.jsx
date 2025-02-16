@@ -355,7 +355,7 @@ const [showPopup, setShowPopup] = useState("");
        try {
         
         console.log("📂 Mounting file tree...");
-        await webContainer.mount(fileTree);
+        await webContainer?.mount(fileTree);
         console.log("✅ File tree mounted successfully!");
        } catch (error) {
         console.error("❌ Error mounting file tree:", error);
@@ -366,7 +366,7 @@ const [showPopup, setShowPopup] = useState("");
        }
        console.log("⚙️ Starting npm install...");
 
-        const installProcess = await webContainer.spawn("npm", ["install"]);
+        const installProcess = await webContainer?.spawn("npm", ["install"]);
 
         installProcess.output.pipeTo(
           new WritableStream({
@@ -399,7 +399,7 @@ const [showPopup, setShowPopup] = useState("");
 
         setShowPopup(""); 
 
-        let tempRunProcess = await webContainer.spawn("npm", ["start"]);
+        let tempRunProcess = await webContainer?.spawn("npm", ["start"]);
 
         tempRunProcess.output.pipeTo(
           new WritableStream({
@@ -411,7 +411,7 @@ const [showPopup, setShowPopup] = useState("");
 
         setRunProcess(tempRunProcess);
 
-        webContainer.on("server-ready", (port, url) => {
+        webContainer?.on("server-ready", (port, url) => {
           console.log(port, url);
           setIframeUrl(url);
         });
