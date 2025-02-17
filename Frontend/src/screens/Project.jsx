@@ -129,6 +129,11 @@ const Project = () => {
       })
       .then((res) => {
         setIsModalOpen(false);
+
+        setProject((prevProject) => ({
+          ...prevProject,
+          users: res.data.users, 
+        }));
       })
       .catch((err) => {
         console.log(err);
