@@ -73,9 +73,11 @@ export const addUserToProject = async (req, res) => {
             users,
             userId: loggedInUser._id
         })
+        const projectUsers = await userModel.find({ _id: { $in: project.users } });
 
         return res.status(200).json({
-            project,
+            // project,
+            users: projectUsers 
         })
 
     } catch (err) {
