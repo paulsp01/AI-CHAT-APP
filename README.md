@@ -16,8 +16,9 @@ Deploy link:https://ai-chat-app-eidq.onrender.com
 ![Screenshot (735)](https://github.com/user-attachments/assets/00cad25b-e03d-4673-b1af-f08787a9a914)
 ⚫You can see all collaborators email by clicking user icon
 ![Screenshot (736)](https://github.com/user-attachments/assets/9450dc8e-ae06-4fda-af55-8187e0a09cb6)
-
+⚫You can chat with your collaborators
 ![Screenshot (723)](https://github.com/user-attachments/assets/617f50dd-f510-41f7-b45c-34e3a7a21e15)
+⚫By using  ▪️▪️▪️ @ai ▪️▪️▪️ you can chat with ai gemini like 🔵You can ask question to ai like @ai what is mongodb and send and wait for few second
 ![Screenshot (737)](https://github.com/user-attachments/assets/215c04a8-3abe-4db7-b131-f05bbb185a31)
 ![Screenshot (738)](https://github.com/user-attachments/assets/e3e000c3-f41d-4feb-be17-e46b1abe5fd2)
 
