@@ -20,8 +20,9 @@ Deploy link:https://ai-chat-app-eidq.onrender.com
 ![Screenshot (723)](https://github.com/user-attachments/assets/617f50dd-f510-41f7-b45c-34e3a7a21e15)
 ⚫By using  ▪️▪️▪️ @ai ▪️▪️▪️ you can chat with ai gemini like 🔵You can ask question to ai like @ai what is mongodb and send and wait for few second
 ![Screenshot (737)](https://github.com/user-attachments/assets/215c04a8-3abe-4db7-b131-f05bbb185a31)
+⚫You can create project also by writing prompt like @ai create a express server .AI create 2 or 3 files for that project
 ![Screenshot (738)](https://github.com/user-attachments/assets/e3e000c3-f41d-4feb-be17-e46b1abe5fd2)
-
+⚫after creating project you click project files and you can see code editor with project
 ![Screenshot (740)](https://github.com/user-attachments/assets/1c141f64-2ecf-473b-93ca-9d5cb430007b)
 ![Screenshot (741)](https://github.com/user-attachments/assets/c28bf78e-32ee-411c-ac85-f2bdf97ab1f6)
 ![Screenshot (742)](https://github.com/user-attachments/assets/a71c2a1c-996b-4b38-99c9-e7b8eeca11c7)
