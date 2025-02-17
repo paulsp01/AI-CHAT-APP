@@ -20,7 +20,7 @@ export const createProject = async (req, res) => {
 
         const newProject = await projectService.createProject({ name, userId });
 
-       return  res.status(201).json(newProject);
+       return  res.status(201).json({ project: newProject });
 
     } catch (err) {
         console.log(err);
