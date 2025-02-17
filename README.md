@@ -6,14 +6,23 @@ Deploy link:https://ai-chat-app-eidq.onrender.com
 
 Tech Stack & Features:
 Frontend: Built with React.js, utilizing Context API for state management.
+
 Backend: Developed with Node.js and MongoDB Refis for handling user data and chat history and logout.
+
 AI Integration: Uses Gemini AI to generate dynamic and intelligent responses.
+
 State Management:
+
 WebContainer: Runs a lightweight, browser-based Node.js environment to manage isolated AI instances.
+
 WebSocket: Enables real-time, bidirectional communication between the client and the AI backend also two or more than two client  .
+
 iframeURL: Ensures sandboxed execution of AI-powered chat logic, improving security and performance.
+
 Additional Features: User authentication, real-time chat, message storage, and a responsive UI,filtree management.
+
 Best Practices: Secure authentication, optimized state handling, and a scalable architecture for a smooth experience.
+
 This project provides a seamless and efficient AI-powered chat experience with real-time interactions and secure execution.
 
 ⚫You can Register and Login
