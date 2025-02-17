@@ -31,4 +31,4 @@ Deploy link:https://ai-chat-app-eidq.onrender.com
 After that you can navigate to home page by clicking home icon and logout
 
 
-🔴The install and run process is not working after deployment due to some issue but it's perfectly works on Local machine
+🔴The install and run process is not working after deployment due to some webcontainer issues but it's perfectly works on Local machine
