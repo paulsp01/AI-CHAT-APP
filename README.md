@@ -28,3 +28,7 @@ Deploy link:https://ai-chat-app-eidq.onrender.com
 ![Screenshot (741)](https://github.com/user-attachments/assets/c28bf78e-32ee-411c-ac85-f2bdf97ab1f6)
 ⚫Now you will click Run button to show the output
 ![Screenshot (742)](https://github.com/user-attachments/assets/a71c2a1c-996b-4b38-99c9-e7b8eeca11c7)
+After that you can navigate to home page by clicking home icon and logout
+
+
+🔴The install and run process is not working after deployment due to some issue but it's perfectly works on Local machine
