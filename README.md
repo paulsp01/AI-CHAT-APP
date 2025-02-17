@@ -10,6 +10,7 @@ Deploy link:https://ai-chat-app-eidq.onrender.com
 
 ⚫Click New Project and crete a project
 ![Screenshot (733)](https://github.com/user-attachments/assets/f2f645f3-fedf-44c7-9188-5d371c82d503)
+⚫Click any created project box and you will navigate to project dashboard
 ![Screenshot (734)](https://github.com/user-attachments/assets/ba4a62dc-1492-4f31-b207-962051c7e05d)
 ![Screenshot (735)](https://github.com/user-attachments/assets/00cad25b-e03d-4673-b1af-f08787a9a914)
 ![Screenshot (736)](https://github.com/user-attachments/assets/9450dc8e-ae06-4fda-af55-8187e0a09cb6)
