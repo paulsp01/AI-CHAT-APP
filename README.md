@@ -13,6 +13,9 @@ Backend: Developed with Node.js and MongoDB Refis for handling user data and cha
 AI Integration: Uses Gemini AI to generate dynamic and intelligent responses.
 
 State Management:
+WebSocket:
+
+Real-time message integration
 
 WebContainer:
 
