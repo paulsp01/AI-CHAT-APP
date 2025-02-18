@@ -14,12 +14,15 @@ AI Integration: Uses Gemini AI to generate dynamic and intelligent responses.
 
 State Management:
 
-WebContainer: Runs a lightweight, browser-based Node.js environment to manage isolated AI instances.
+WebContainer:
 
+Runs a browser-based Node.js environment to isolate and securely manage the execution of backend services, such as handling AI models or APIs, without relying on traditional server environments.
+It enables lightweight runtime environments directly in the browser, reducing dependency on external servers and improving responsiveness.
 WebSocket: Enables real-time, bidirectional communication between the client and the AI backend also two or more than two client  .
 
-iframeURL: Ensures sandboxed execution of AI-powered chat logic, improving security and performance.
+iframeURL:
 
+Provides sandboxed execution for certain parts of the application (such as AI logic or external content) within a secure boundary. This improves security by preventing any malicious activity or unintentional side effects that might affect the rest of the app.
 Additional Features: User authentication, real-time chat, message storage, and a responsive UI,filtree management.
 
 Best Practices: Secure authentication, optimized state handling, and a scalable architecture for a smooth experience.
