@@ -5,6 +5,7 @@ Deploy link:https://ai-chat-app-eidq.onrender.com
  AI Chat App is a real-time messaging application powered by Google's Gemini AI, providing intelligent and context-aware responses to user queries.
 
 Tech Stack & Features:
+
 Frontend: Built with React.js, utilizing Context API for state management.
 
 Backend: Developed with Node.js and MongoDB Refis for handling user data and chat history and logout.
